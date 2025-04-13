@@ -1,0 +1,46 @@
+{
+  "name": "platform",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@react-three/fiber": "^8.16.8",
+    "@reduxjs/toolkit": "^2.6.1",
+    "axios": "^1.7.9",
+    "cloudinary": "^2.5.1",
+    "date-fns-tz": "^3.2.0",
+    "dotenv": "^16.4.7",
+    "firebase": "^11.2.0",
+    "firebase-admin": "^13.0.2",
+    "fs": "^0.0.1-security",
+    "history": "^5.3.0",
+    "react": "^18.3.1",
+    "react-datepicker": "^7.6.0",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.4.0",
+    "react-multi-carousel": "^2.8.5",
+    "react-range": "^1.10.0",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.4.1",
+    "react-toastify": "^11.0.5",
+    "redux": "^5.0.1",
+    "styled-components": "^6.1.15",
+    "web-vitals": "^4.2.4"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react": "^7.34.3",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "vite": "^5.3.4"
+  }
+}

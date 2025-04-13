@@ -1,0 +1,72 @@
+.container {
+  border-radius: 24px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  outline: none; /* Remove the default focus highlight */
+
+  
+}
+
+.title {
+  text-align :right;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line-saperator, rgba(0, 47, 54, 0.08));
+  color: var(--Text, #252422);
+  font: 600 20px Expo Arabic, -apple-system, Roboto, Helvetica, sans-serif;
+}
+
+.searchBar {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: end;
+  border-radius: 50px;
+  background: var(--BG-gray, #f6f5f5);
+  margin-top: 24px;
+  padding: 16px;
+  gap: 8px;
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--Cool, #1d1d1c);
+  font: 400 14px Expo Arabic, -apple-system, Roboto, Helvetica, sans-serif;
+  text-align: right;
+  outline: none; /* Remove the default focus highlight */
+
+}
+
+.searchIcon {
+  width: 20px;
+  height: 20px;
+}
+.header {
+  display: flex;
+  justify-content: space-between; /* Space between the two items */
+  align-items: center; /* Vertically center the items */
+  width: 100%; /* Ensure the container takes full width */
+}
+
+.title {
+  margin: 0; /* Remove default margin */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .header {
+      flex-direction: column; /* Stack items vertically on small screens */
+      align-items: flex-start; /* Align items to the start (left) */
+      gap: 10px; /* Add space between stacked items */
+  }
+}
+
+@media (max-width: 991px) {
+  .container,
+  .searchBar {
+    max-width: 100%;
+  }
+}

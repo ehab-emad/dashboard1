@@ -1,0 +1,125 @@
+.button {
+  border: none; /* Remove any border */
+  background-color: transparent; /* Keep background transparent */
+  padding: 0; /* No padding */
+  display: flex; /* Flex display */
+  outline: none; /* Remove outline when focused */
+  cursor: pointer; /* Add cursor pointer for better UX */
+}
+
+.placeHolder {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid var(--line-saperator, rgba(0, 47, 54, 0.08));
+  margin-top: 20px ;
+}
+.ticketCard {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 16px;
+  border: 1px solid var(--line-saperator, rgba(0, 47, 54, 0.08));
+  background: #fff;
+  padding: 20px 16px;
+}
+
+/* when we press on the button this styles will be added */
+.selected {
+  box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.08);
+} 
+
+.icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.lastModified,
+.date,
+.ticketNumber {
+  text-align: right;
+}
+
+.title {
+  text-align: right;
+  min-width: 240px;
+}
+
+.statusWrapper {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.status {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 120px;
+  padding: 8px;
+  border-radius: 8px;
+  position: relative;
+}
+.status div{
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap : 10px;
+}
+
+
+
+.stausDropDown button p{
+  margin: 0;
+}
+.stausDropDown button:hover {
+  opacity: 0.8;
+  /* cursor: pointer; */
+}
+.stausDropDown button:first-child {
+  background: var(--very-light, #f2fbfa);
+}
+
+
+
+.pending {
+  background: var(--very-light, #f2fbfa);
+}
+
+.closed {
+  background: rgba(225, 255, 201, 1);
+}
+
+.statusIcon {
+  width: 14px;
+  height: 14px;
+  /* cursor: pointer; */
+}
+/* In your CSS file */
+.bigScreen {
+  display: block;
+}
+@media (max-width: 880px) {
+  .bigScreen {
+    display: none;
+  }
+}
+
+.smallScreen {
+  display: none;
+}
+@media (max-width: 880px) {
+  .smallScreen {
+    display: block;
+  }
+}
+
+
+@media (max-width: 991px) {
+  .ticketCard {
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+}

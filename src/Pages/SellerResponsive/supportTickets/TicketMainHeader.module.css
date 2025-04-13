@@ -1,0 +1,70 @@
+.ticketHeaderContainer {
+    border-bottom: 1px solid var(--line-saperator, #002f3614);
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-self: stretch;
+    align-items: center;
+    gap: 40px 100px;
+    padding-bottom: 8px;
+    font-family:
+      Expo Arabic,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-weight: 600;
+    display: flex;
+  }
+  
+  .createTicketButton {
+    color: #26969c;
+    text-align: center;
+    background-color: #e5f2f3;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    justify-content: center;
+    align-self: stretch;
+    align-items: center;
+    gap: 4px;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 16px 24px;
+    font-size: 14px;
+    line-height: 1;
+    display: flex;
+    font-family: inherit;
+    font-weight: inherit;
+  }
+  
+  .buttonText {
+    align-self: stretch;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  
+  .addCircleIcon {
+    flex-shrink: 0;
+    align-self: stretch;
+    width: 16px;
+    height: 16px;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+  }
+  
+  .ticketTitle {
+    color: #252422;
+    align-self: stretch;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 20px;
+  }
+  
+  @media (width <= 991px) {
+    .createTicketButton {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+  

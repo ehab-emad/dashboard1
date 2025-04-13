@@ -1,0 +1,342 @@
+.countryCode {
+  color: rgba(39, 152, 158, 1);
+  text-align: right;
+  font-weight: 500;
+  align-self: stretch;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.newentryinput {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 624px;
+  padding: 40px;
+  border-radius: 24px;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.08);
+  margin: 0 auto; 
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.newrentry {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 124px;
+  background-image: url('https://res.cloudinary.com/drpmd9zkk/image/upload/v1739475000/categoriez_-_mob_bg_lrlhwx.png');
+  background-size: cover; /* Ensure the background image covers the entire area */
+  background-position: center; /* Center the background image */
+}
+
+@media (max-width: 991px) {
+  .newentryinput {
+    padding: 20px;
+  }
+
+  .newrentry {
+    padding: 60px 20px; /* Reduce padding for smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .newrentry {
+    padding: 40px 10px; /* Further reduce padding for mobile */
+  }
+}
+
+.header {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: end;
+  font-family:
+    Expo Arabic,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  color: #000000;
+  justify-content: start;
+}
+
+@media (max-width: 991px) {
+  .header {
+    max-width: 100%;
+  }
+}
+
+.title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 20px; /* Smaller font size for mobile */
+  }
+}
+
+.subtitle {
+  text-align: right;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  margin-top: 8px;
+  color: rgba(115, 110, 103, 1);
+}
+
+.inputSection {
+  margin-top: 32px;
+  width: 100%;
+  font-family:
+    Expo Arabic,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 16px;
+  line-height: 1;
+}
+
+@media (max-width: 991px) {
+  .inputSection {
+    max-width: 100%;
+  }
+}
+
+.phoneInputWrapper {
+  border-radius: 16px;
+  border: 1px solid rgba(37, 36, 34, 0.5);
+  display: flex;
+  min-height: 60px;
+  width: 100%;
+  padding: 20px 16px;
+  align-items: center;
+  gap: 5px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .phoneInputWrapper {
+    padding: 10px; /* Reduce padding for mobile */
+  }
+}
+
+.separator {
+  border: 1px solid rgba(128, 128, 128, 1);
+  align-self: stretch;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 0px;
+  flex-shrink: 0;
+  height: 14px;
+}
+
+.phoneInput {
+  color: #010101;
+  border-radius: 50px;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-weight: 400;
+  text-align: center;
+  width: auto;
+  border: none;
+  outline: none;
+  text-align: start;
+}
+
+.submitButton {
+  align-self: stretch;
+  color: #f3f3f3;
+  border-radius: 50px;
+  background-color: rgba(39, 152, 158, 1);
+  margin-top: 16px;
+  width: 100%;
+  padding: 16px 40px;
+  gap: 8px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-align: center;
+}
+
+@media (max-width: 991px) {
+  .submitButton {
+    max-width: 100%;
+    padding: 16px 20px;
+    white-space: initial;
+  }
+}
+
+.dividerSection {
+  display: flex;
+  margin-top: 32px;
+  width: 100%;
+  align-items: center;
+  gap: 16px;
+  justify-content: end;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 991px) {
+  .dividerSection {
+    max-width: 100%;
+  }
+}
+
+.dividerLine {
+  align-self: stretch;
+  min-width: 240px; /* Default min-width */
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 1;
+}
+
+@media (max-width: 991px) {
+  .dividerLine {
+      min-width: 120px; /* Smaller min-width for small screens */
+  }
+}
+
+.dividerImage {
+  aspect-ratio: 250;
+  object-fit: contain;
+  object-position: center;
+  width: 100%;
+}
+
+.dividerText {
+  color: #000000;
+  text-align: center;
+  font-family:
+    Expo Arabic,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  align-self: stretch;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.emailButton {
+  border-radius: 16px;
+  border: 1px solid rgba(37, 36, 34, 0.5);
+  display: flex;
+  margin-top: 32px;
+  min-height: 60px;
+  width: 100%;
+  padding: 18px 16px;
+  align-items: center;
+  font-family:
+    Expo Arabic,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 16px;
+  color: #000000;
+  font-weight: 400;
+  text-align: center;
+  line-height: 1;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 991px) {
+  .emailButton {
+    max-width: 100%;
+  }
+}
+
+.emailButtonText {
+  align-self: stretch;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 1;
+  flex-shrink: 1;
+  flex-basis: 0%;
+  color: rgba(37, 36, 34, 1);
+}
+
+@media (max-width: 991px) {
+  .emailButtonText {
+    max-width: 100%;
+  }
+}
+
+.emailIcon {
+  align-self: stretch;
+  display: flex;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 24px;
+  flex-shrink: 0;
+  height: 24px;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.radioLabel input[type="radio"] {
+  margin: 0;
+}
+
+.emailInput, .passwordInput {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 12px;
+  background-color: #27989E;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.userTypeContainer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.radioInput {
+  margin: 0;
+}

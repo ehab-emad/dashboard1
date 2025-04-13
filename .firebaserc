@@ -1,0 +1,16 @@
+{
+  "projects": {
+    "default": "trentdb-c5666",
+    "staging": "trentdb-c5666"
+  },
+  "targets": {
+    "trentdb-c5666": {
+      "hosting": {
+        "trentdashboard-40": [
+          "trentdashboard-40"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

@@ -1,0 +1,130 @@
+.detailsContainer {
+  border-radius: 16px;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.summary {
+  text-align: right;
+  margin-bottom: 16px;
+}
+
+.summaryTitle {
+  color: var(--Text, #252422);
+  font: 600 20px Expo Arabic, sans-serif;
+}
+
+.summarySubtitle {
+  color: var(--Paragraph, #736e67);
+  font: 400 14px Expo Arabic, sans-serif;
+  margin-top: 8px;
+}
+
+.infoGrid {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.infoField {
+  flex: 1;
+  min-width: 240px;
+}
+
+.fieldLabel {
+  color: var(--Black, #020202);
+  display: block;
+  margin-bottom: 8px;
+  text-align: right;
+}
+
+.fieldValue {
+  text-align: end;
+  background: var(--BG-gray, #f6f5f5);
+  border-radius: 16px;
+  padding: 16px;
+  color: var(--Dark, #002f36);
+}
+
+.mediaSection {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.imagesContainer,
+.descriptionContainer {
+  text-align: end;
+  flex: 1;
+  min-width: 240px;
+}
+
+.imageGrid {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: var(--BG-gray, #f6f5f5);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 8px;
+}
+
+.attachedImage {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
+.description {
+  background: var(--BG-gray, #f6f5f5);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 8px;
+  color: var(--Paragraph, #736e67);
+  line-height: 20px;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+}
+
+.supportResponse {
+  margin-top: 24px;
+  direction: rtl !important;
+}
+
+.responseText {
+  background: var(--very-light, #f2fbfa);
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 8px;
+  min-height: 72px;
+  color: var(--Paragraph, #736e67);
+  display: flex;
+  align-items: center;
+}
+
+.replyInput {
+  direction: rtl !important;
+  border-radius: 8px;
+  border: 2px solid var(--line-saperator, rgba(0, 47, 54, 0.08));
+  width: -webkit-fill-available;
+  min-height: 124px;
+  padding: 16px;
+  margin-top: 24px;
+  font: 400 14px Expo Arabic, sans-serif;
+  resize: vertical;
+}
+
+@media (max-width: 991px) {
+  .detailsContainer,
+  .infoGrid,
+  .mediaSection {
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+}

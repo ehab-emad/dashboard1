@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "public": "dist",
+    "site" : "trentdashboard-40",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

@@ -1,0 +1,267 @@
+.modalOverlay {
+  background-color: #0000003d; /* Semi-transparent black background */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  position: absolute;
+  height: 104vh;
+    scrollbar-width: none;
+    overflow-y: scroll; /* Fixed positioning to cover the entire screen */
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width */
+  /* height: 100%; Full height */
+  z-index: 1000; /* Ensure it's on top of other elements */
+}
+  @media (width<=991px) {
+    .modalOverlay {
+      /* padding: 80px 20px; */
+    }
+  }
+  
+  @media (width<=640px) {
+    .modalOverlay {
+      padding: 40px 16px;
+    
+
+    }
+  }
+  
+  .modalContainer {
+    background-color: #fff;
+    border-radius: 24px;
+    flex-direction: column;
+    align-items: flex-end;
+    width: auto;
+
+    position: absolute;
+    top: 10%;
+    height: auto;
+    padding: 16px;
+    display: flex;
+    box-shadow: 0 4px 24px #0000000a;
+  }
+  
+  @media (width<=991px) {
+    .modalContainer {
+      width: 50%;
+
+      max-width: 620px;
+
+    }
+  }
+  
+
+  
+  .modalHeader {
+    border-bottom: 1px solid #002f3614;
+    justify-content: flex-end;
+    align-self: stretch;
+    align-items: flex-start;
+    gap: 8px;
+    display: flex;
+  }
+  
+  .modalTitle {
+    color: #252422;
+    text-align: right;
+    flex: 1;
+    font-family: Roboto, sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+  }
+  
+  .modalContent {
+    flex-direction: column;
+    align-self: stretch;
+    align-items: flex-end;
+    gap: 8px;
+    display: flex;
+  }
+  
+  .formGroup {
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    align-items: flex-end;
+    gap: 8px;
+    display: flex;
+    flex: 1;
+  }
+  
+  .formLabel {
+    color: #252422;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+  }
+  
+  .formInput {
+    color: #736e67;
+    text-align: right;
+    background-color: #f6f5f5;
+    border-radius: 16px;
+    gap: 10px;
+    padding: 16px;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    border: none;
+    align-self: stretch;
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+
+  }
+  
+  @media (width<=640px) {
+    .formInput {
+      padding: 12px;
+    }
+  }
+  
+  .formInputdropdown {
+    background-color: #f6f5f5;
+    border-radius: 16px;
+    justify-content: space-between;
+    align-self: stretch;
+    align-items: center;
+    gap: 10px;
+    padding: 16px;
+    display: flex;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  @media (width<=640px) {
+    .formInputdropdown {
+      padding: 12px;
+    }
+  }
+  
+  .inputText {
+    color: #736e67;
+    text-align: right;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+  }
+  
+  .formInput2 {
+    background-color: #f6f5f5;
+    border-radius: 16px;
+    justify-content: flex-end;
+    align-self: stretch;
+    align-items: center;
+    gap: 10px;
+    padding: 16px;
+    display: flex;
+    border: none;
+    align-self: stretch;
+    cursor: pointer;
+  }
+  
+  @media (width<=640px) {
+    .formInput2 {
+      padding: 12px;
+    }
+  }
+  
+  .formInputmessage {
+    color: #736e67;
+    text-align: right;
+    background-color: #f6f5f5;
+    border-radius: 16px;
+    align-self: stretch;
+    gap: 10px;
+    height: 116px;
+    padding: 16px;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    border: none;
+    align-self: stretch;
+    resize: none;
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+
+  }
+  
+  @media (width<=640px) {
+    .formInputmessage {
+      padding: 12px;
+    }
+  }
+  
+  .submitButton {
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    background-color: #26969c;
+    border: none;
+    border-radius: 50px;
+    align-self: stretch;
+    gap: 8px;
+    padding: 16px;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    box-shadow: 0 4px 24px #00000014;
+  }
+  
+  @media (width<=640px) {
+    .submitButton {
+      padding: 12px;
+    }
+    .modalHeader button{
+      font-size: 0;
+    }
+  }
+ 
+  .selectWrapper {
+    position: relative;
+    width: 100%;
+  }
+  
+  .formInputdropdown {
+    color: #736e67;
+    text-align: right;
+    background-color: #f6f5f5;
+    border-radius: 16px;
+    gap: 10px;
+    padding: 16px;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    border: none;
+    align-self: stretch;
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+  }
+  
+  .dropdownIcon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Ensure the icon doesn't interfere with clicking the select */
+  }  @media (width<=640px) {
+    .modalContainer {
+      padding: 16px;
+    }
+    .modalTitle{
+      font-size: 20px;
+    }
+  }
+  
+  .inputText {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Ensure the text doesn't interfere with clicking the select */
+  }
+  
