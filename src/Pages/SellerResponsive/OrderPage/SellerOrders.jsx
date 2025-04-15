@@ -173,9 +173,10 @@ const SellerMyProductsPage = () => {
         />
         <SearchBar setSearch={setSearchQuery} />
         <LabelHeader  />
+      {filteredData.length?
         <RequestDetails
-          filteredData={filteredData}
-        />
+        filteredData={filteredData}
+      />:<div>لا يوجد طلبات حاليا</div>}
       </div>
     </>
   );
