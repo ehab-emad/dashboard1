@@ -2,7 +2,7 @@ import  { useEffect,useState } from 'react';
 import AddProductInfo from './AddProductInfo';
 import ImageUploader from './ImageUploader';
 import { useSelector, useDispatch } from 'react-redux';
-import { AddingProducts } from '../../../store/reducers/sellerProductsReducer';
+import { AddingProducts, getSeller } from '../../../store/reducers/sellerProductsReducer';
 import { Timestamp } from "firebase/firestore"; 
 import { toast } from 'react-toastify';
 
@@ -739,7 +739,7 @@ const offering = [
 ];
 const AddProduct = () => {
 
-
+const {sellerdata}=useSelector((state)=>state.seller_products)
   const getFirebaseTimestamp = () => {
     const currentDate = new Date();
 
@@ -880,31 +880,39 @@ rating:0
     };
 
 
-    
+    if(sellerdata.status==="approved"){
     if(productDetails.brand.length && productDetails.category.length && city.length && NewAddress.length && images.length && productDetails.description.length && productDetails.productName.length && productDetails.category.length && productDetails.features.length )
     { 
      
-      if(status.status==="pending")
-        toast.success("تم اضافه منتج جديد")
-       else{
-         toast.success("تم اضافه المنتج للمسودة")
-       }
    
-      
-      dispatch(AddingProducts(productData))}
+        if(status.status==="pending")
+          {  toast.success("تم اضافه منتج جديد")}
+           else{
+             toast.success("تم اضافه المنتج للمسودة")
+       
+          
+         
+        }
+        dispatch(AddingProducts(productData))
+        setProductDetails({
+          brand: '',
+          productName: '',
+          category: '',
+          description: '',
+          features: ['', '', ''],
+        })
+        setNewAddress('')
+   
+    }
       else{
      return    toast.info("يجب مليئ كل المدخلات ")
      
+      }}
+      else{
+        toast.error('لا يمكنك النشر حاليا')
       }
 
-    setProductDetails({
-      brand: '',
-      productName: '',
-      category: '',
-      description: '',
-      features: ['', '', ''],
-    })
-    setNewAddress('')
+    
   
   }
 
@@ -922,8 +930,8 @@ rating:0
   };
   
     useEffect(() => {
-
-    }, [uploaded]); // Runs when 'uploaded' changes
+dispatch(getSeller(sellerid))
+    }, []); // Runs when 'uploaded' changes
   
 
   const toggleExpandproductdetails = () => {

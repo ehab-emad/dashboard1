@@ -452,7 +452,7 @@ const filteredProducts = useMemo(() => {
     } else if (activeFilterText === 'بانتظار الموافقة') {
       const allProducts = [
         ...products_pending,
-        ...products_confirmed,
+     
         ...products_rejected,
       ].sort((a, b) => b.createdAt - a.createdAt);
       filtered = allProducts;
@@ -579,7 +579,11 @@ const deleteProduct = async () => {
             <img style={{width:"100%"}} src='https://res.cloudinary.com/dbztvm0io/image/upload/v1741538281/%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA_-_%D9%85%D8%A7%D9%84%D9%83_-_%D9%85%D8%B3%D9%88%D8%AF%D8%A9_lh7ojh.png' alt=' available'/>
             </div>
             
-            : <div style={{width:"100%"}}>
+            : 
+            product.status==="rejected" ?
+            <div style={{width:"100%"}}>
+            <img style={{width:"100%"}} src='https://res.cloudinary.com/dbztvm0io/image/upload/v1744557538/trent_images/Orders_status_snz8b9.png ' alt=' available'/>
+            </div>:<div style={{width:"100%"}}>
     <img style={{width:"100%"}} src='https://res.cloudinary.com/dbztvm0io/image/upload/v1741538282/%D9%85%D9%86%D8%AA%D8%AC_-_%D9%85%D8%A7%D9%84%D9%83_-_%D8%BA%D9%8A%D8%B1_%D9%85%D9%86%D8%B4%D9%88%D8%B1_bou7gr.png' alt='not available'/>
     </div>
           

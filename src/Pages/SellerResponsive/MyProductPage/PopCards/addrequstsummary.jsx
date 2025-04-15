@@ -488,7 +488,7 @@ useEffect(()=>{
       // const newStatus=false
       const productid=product.id
     if(product.published===true){
-       const newStatuss={published: false,statuss:"pending"}
+       const newStatuss={published: false,statuss:product.status}
        
       
    dispatch(ChangepublishedStatus({ sellerid, productid, newStatuss }));
@@ -498,7 +498,7 @@ useEffect(()=>{
  
     }
     else{
-      const newStatuss={published: true,statuss:"approved"}
+      const newStatuss={published: true,statuss:product.status}
 
       dispatch(ChangepublishedStatus({sellerid,productid,newStatuss}))
      setReviewProduct(product.id)

@@ -660,7 +660,7 @@ export const getPublichedProductsTrue = async (sellerid) => {
             collection(firestore, 'products'),
             where('sellerid', '==', sellerid),
             where('published', '==', true),
-            where('status', '==', 'confirmed'),
+            where('status', '==', 'approved'),
             orderBy('createdAt', 'desc')
         );
         const publishedTrueSnapshot = await getDocs(publishedTrueQuery);
@@ -683,7 +683,8 @@ export const getPublichedRentedTrue = async (sellerid) => {
             where('sellerid', '==', sellerid),
             orderBy('createdAt', 'desc'),
             where('published', '==', true),
-            where('rented', '==', true)
+            where('rented', '==', true),
+            where('status', '==', 'approved')
         );
         const rentedPublishedSnapshot = await getDocs(rentedPublishedTrueQuery);
         const rentedPublishedTrue = rentedPublishedSnapshot.docs.map(doc => ({
@@ -706,6 +707,8 @@ export const getPublichedRentedFalse = async (sellerid) => {
             where('sellerid', '==', sellerid),
             where('published', '==', true),
             where('rented', '==', false),
+            where('status', '==', 'approved'),
+
             orderBy('createdAt', 'desc')
         );
         const publishedRentedFalseQSnapshot = await getDocs(publishedRenteFalsedQuery);
