@@ -139,15 +139,18 @@ const RecentOrders = () =>
 
         dispatch( getRentedOrders(sellerid));
       }, [dispatch,new_orders]);
-
-
-  const memoizedRecentOrders = useMemo(() => {
-    
-    // If new_orders is available, use it; otherwise, fallback to the static data
-    return rented_orders 
-  }, [rented_orders]); // Recalculate only when new_orders changes
-
-
+      const memoizedRecentOrders = useMemo(() => {
+        // إزالة الأوردرات المكررة باستخدام reduce مع فحص الـ productid
+        const uniqueOrders = rented_orders.reduce((acc, order) => {
+          // إذا لم يكن المنتج موجود في المصفوفة، أضفه
+          if (!acc.some(existingOrder => existingOrder.productid === order.productid)) {
+            acc.push(order);
+          }
+          return acc;
+        }, []);
+        return uniqueOrders;
+      }, [rented_orders]); // Recalculate only when rented_orders changes
+      
     return (
         <div style={RecentOrderStyle.recentOrders}>
           <HeaderContainer style={RecentOrderStyle.header}>

@@ -41,14 +41,15 @@ const styles = {
     },
 };
 
-const TextBoxField = ({ label, placeholder }) => {
+const TextBoxField = ({ label, placeholder ,onChange}) => {
 
 
     return (
         <div style={styles.pricesfield}>
             <div style={styles.label}>{label}</div>
             <div style={styles.inputContainer}>
-                <input disabled
+                <input onChange={onChange}
+                
                     type="text"
                     placeholder={placeholder ||0}
                     style={styles.placeholder}

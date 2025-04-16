@@ -448,7 +448,12 @@ const filteredProducts = useMemo(() => {
     }
   } else if (activeTop === 'المنتجات المعلقة') {
     if (activeFilterText === 'الكل') {
-      filtered = published_false;
+      const allProducts = [
+        ...products_draft,
+     ...products_pending,
+        ...published_false,
+      ].sort((a, b) => b.createdAt - a.createdAt);
+      filtered = allProducts;
     } else if (activeFilterText === 'بانتظار الموافقة') {
       const allProducts = [
         ...products_pending,
@@ -540,15 +545,23 @@ const deleteProduct = async () => {
     
     {filteredProducts.length > 0 ? filteredProducts.map((product, productIndex) => (
      <div  key = {productIndex}>
-      <div key = {productIndex} style={stylesProductCard.productCard} className='hide'>
-      {DeletProduct ? (
+        
+        {openProductsnew[product.id] &&  (
+            <AddRequestSummary product={product} setReviewProduct={toggleProductNew}/>
+          )  }
+{DeletProduct ? (
         <RejectOrderPopCard deleteProduct={deleteProduct} product={product} setDeletProduct={setDeletProduct} type='delete'/>
       ) : null}
 
-      {openProductsnew[product.id] &&  (
+      <div key = {productIndex} style={stylesProductCard.productCard} className='hide'>
+    
+      {/* {openProductsnew[product.id] &&  (
             <AddRequestSummary product={product} setReviewProduct={toggleProductNew}/>
-          )  }
+          )  } */}
+    
      <div style={styles.filterItem}>
+    
+
        {buttonicons.map((icon, index) => (
          <img
            key={index}
@@ -656,15 +669,7 @@ onClick={() => handleIconClick(index,product.id)}
          
        </div>
 
-{DeletProduct ? (
-        <RejectOrderPopCard deleteProduct={deleteProduct} product={product} setDeletProduct={setDeletProduct} type='delete'/>
-      ) : null}
-
-      {openProductsnew[product.id] &&  (
-            <AddRequestSummary product={product} setReviewProduct={toggleProductNew}/>
-          )  }
-
-
+   
 <div className='hide'  style={stylesProductCard.productTitle}>{product.name || "empty"}
 
 

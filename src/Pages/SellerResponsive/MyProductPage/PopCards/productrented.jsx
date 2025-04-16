@@ -110,13 +110,14 @@ const RejectOrderStyle = {
     confirmButtonText: 'الغاء النشر'
   };
   
-  const Editpublished = ({setDeletProduct,deleteProduct ,order,productby_Id,onReviewClick }) => {
+  const Editpublished = ({onSuccess,deleteProduct ,id,productby_Id,onReviewClick }) => {
      const dispatch=useDispatch()
      const sellerid = localStorage.getItem('sellerId');
      // Replace with dynamic user ID
       const handleapproved =async (order)=> {
-        
           const productid=productby_Id.id
+        console.log(productid)
+
         if(productby_Id.published===true){
            const newStatuss={published: false,statuss:productby_Id.status}
          
@@ -125,21 +126,25 @@ const RejectOrderStyle = {
            
          toast.success   ( "تم إلغاء تفعيل النشر")
          await  dispatch( getRentedOrders(sellerid));
-         
+         await    dispatch(ChangepublishedStatus({ sellerid, productid, newStatuss })).then(() => {
+          if (onSuccess) onSuccess(); // نرجع نجيب البيانات تاني
+        });
          await  dispatch( productbyId({sellerid,productid}));
          
-         onReviewClick(order)
+         onReviewClick(id)
         }
         else{
           const newStatuss={published: true,statuss:productby_Id.status}
     
     const productid=productby_Id.id
-         await dispatch(ChangepublishedStatus({sellerid,productid,newStatuss}))
+    await dispatch(ChangepublishedStatus({ sellerid, productid, newStatuss })).then(() => {
+      if (onSuccess) onSuccess(); // نرجع نجيب البيانات تاني
+    });
          toast.success   ( "تم  تفعيل النشر")
        
          await  dispatch( getRentedOrders(sellerid));
          await  dispatch( productbyId({sellerid,productid}));
-         onReviewClick(order)
+         onReviewClick(id)
     
         }
         
@@ -165,7 +170,7 @@ const RejectOrderStyle = {
             style={RejectOrderStyle.backButton}
             tabIndex={0}
             aria-label="الرجوع"
-            onClick={()=>onReviewClick(productby_Id)}
+            onClick={()=>onReviewClick(id)}
           >
             الرجوع
           </button>

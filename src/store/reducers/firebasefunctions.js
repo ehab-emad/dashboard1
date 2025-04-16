@@ -637,6 +637,7 @@ export const getPublichedProductsFalse = async (sellerid) => {
     try {
         const rejectedProductsQuery = query(
             collection(firestore, 'products'),
+            where('status','==','approved'),
             where('sellerid', '==', sellerid),
             where('published', '==', false),
             orderBy('createdAt', 'desc')
@@ -653,6 +654,22 @@ export const getPublichedProductsFalse = async (sellerid) => {
         throw error;
     }
 };
+
+export const updateProductss = async (productId, updatedProductData) => {
+  try {
+      // تحديد الـ document اللي عايزين نحدثه باستخدام الـ productId
+      const productRef = doc(firestore, 'products', productId);
+
+      // تحديث المنتج بالبيانات المعدلة
+      await updateDoc(productRef, updatedProductData);
+
+      toast.success("تم تحديث المنتج بنجاح");
+  } catch (error) {
+      console.error("خطأ في تحديث المنتج:", error);
+      throw error;
+  }
+};
+
 
 export const getPublichedProductsTrue = async (sellerid) => {
     try {

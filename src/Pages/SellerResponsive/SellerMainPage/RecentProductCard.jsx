@@ -152,94 +152,119 @@ const Price = styled.div`
       display : none;
   }
 `
-const RecentProductCard = ({ productdata,productid }) => {
-    const {  productby_Id,customerby_Id } = useSelector((state) => state.seller_products);
-    const sellerid = localStorage.getItem('sellerId');
-    const [openProducts, setOpenProducts] = useState({});
-
-
-  const toggleProduct = (productId) => {
-       setOpenProducts((prev) => ({
-         ...prev,
-         [productId]: !prev[productId], // Toggle the clicked product
-       }));
-     };
-     const onReviewClick = (Order) => {
-      toggleProduct(Order.id) // Toggle the state
-       // setActiveOrder(Order.id)
-   
-     };
-     // Replace with dynamic user ID
+const RecentProductCard = ({ productdata, productid }) => {
+  const { productby_Id, customerby_Id } = useSelector((state) => state.seller_products);
+  const sellerid = localStorage.getItem('sellerId');
+  const [openProducts, setOpenProducts] = useState({});
   const [orderData, setOrderData] = useState([]);
   const dispatch = useDispatch();
 
+  // Toggle function for the product
+  const toggleProduct = (productId) => {
+    setOpenProducts((prev) => ({
+      ...prev,
+      [productId]: !prev[productId], // Toggle the clicked product
+    }));
+  };
+  const refetchProductData = async () => {
+    try {
+      const response = await dispatch(productbyId({ sellerid, productid }));
+      setOrderData(response.payload.productby_Id);
+    } catch (error) {
+      console.error("Error refetching data:", error);
+    }
+  };
+  
+  const onReviewClick = (Order) => {
+    toggleProduct(Order.customerid); // Toggle the state
+    // setActiveOrder(Order.id)
+  };
+
+  // Fetch product orders when productid changes
   useEffect(() => {
+    dispatch(customerbyId(productdata.customerid))
+
     const fetchOrders = async () => {
-      const response = await dispatch(productbyId({ sellerid,productid }));
-      setOrderData(response.payload.productby_Id); // تخزين البيانات لكل كارت لوحده
+      try {
+        // Dispatch action to fetch product data by productid
+        const response = await dispatch(productbyId({ sellerid, productid }));
+        setOrderData(response.payload.productby_Id); // Store the fetched data for this product
+      } catch (error) {
+        console.error("Error fetching order data:", error);
+      }
     };
-dispatch(customerbyId(productdata.customerid))
-    fetchOrders();
-  }, [productid]); // كل كارت بيشتغل لوحده لما الـ productid يتغير
+
+    if (productid) {
+      fetchOrders(); // Fetch the data when productid changes
+    }
+    
+    // Fetch customer data for the product
+
+   
+
+  }, [productid, dispatch, sellerid, productdata.customerid]); // Dependency array to run the effect only when productid or customerid changes
 
   return (
     <div style={styles.productsCard}>
-     
-   <div>  {
-  productby_Id.published?
-  <button 
-  style={{ ...styles.actionButton, ...styles.rejectButton }}
-  tabIndex="0"
-  role="button"
-  onClick={()=>toggleProduct(productby_Id.id)}
+      {console.log("orderBy_IdProduct", customerby_Id)}
 
->
- إلغاء النشر
-</button>:
-  <button 
-  style={{ ...styles.actionButton, ...styles.approveButton }}
-  tabIndex="0"
-  role="button"
-  onClick={()=>toggleProduct(productby_Id.id)}
->
-تفعيل النشر
-</button>
-}</div>
+      <div>
+        {orderData.published ? (
+          <button
+            style={{ ...styles.actionButton, ...styles.rejectButton }}
+            tabIndex="0"
+            role="button"
+            onClick={() => toggleProduct(productdata.customerid)}
+          >
+            إلغاء النشر
+          </button>
+        ) : (
+          <button
+            style={{ ...styles.actionButton, ...styles.approveButton }}
+            tabIndex="0"
+            role="button"
+            onClick={() => toggleProduct(productdata.customerid)}
+          >
+            تفعيل النشر
+          </button>
+        )}
+      </div>
 
-      <Price >
-
-      
+      <Price>
         <div style={styles.label}>المبلغ المدفوع</div>
         <div style={styles.valueContainer}>
           <div>ر.س</div>
-          <div>{productdata?productdata.price:"empty"}</div>
+          <div>{productdata ? productdata.price : "empty"}</div>
         </div>
       </Price>
-      <Price >
+
+      <Price>
         <div style={styles.label}>مدة التأجير</div>
         <div style={styles.valueContainer}>
           <div>ايام</div>
-          <div>{productdata?productdata.duration:"empty"}</div>
+          <div>{productdata ? productdata.duration : "empty"}</div>
         </div>
       </Price>
-      <Price >
+
+      <Price>
         <div style={styles.label}>اسم المستأجر</div>
-        <div style={styles.valueContainer}>{customerby_Id? customerby_Id.customername:"empty"}</div>
+        <div style={styles.valueContainer}>
+          {customerby_Id ? productdata.customername : "empty"}
+        </div>
       </Price>
+
       <div style={styles.info}>
         <div style={styles.infoContainer}>
-         
-          <div style={styles.productName}>
-            {productby_Id.productname}
-          </div>
+          <div style={styles.productName}>{productby_Id.productname}</div>
         </div>
-      <ProductImage
+
+        <ProductImage
           loading="lazy"
-          src={productby_Id.img|| "https://cdn.builder.io/api/v1/image/assets/TEMP/80629cbe88e05e51bc90c1bb3b2858c0690e6cb7d40d292e4b417507a0e600f2?placeholderIfAbsent=true&apiKey=6d0a7932901f457a91041e45ceb959e7"}
+          src={productby_Id.img || "https://cdn.builder.io/api/v1/image/assets/TEMP/80629cbe88e05e51bc90c1bb3b2858c0690e6cb7d40d292e4b417507a0e600f2?placeholderIfAbsent=true&apiKey=6d0a7932901f457a91041e45ceb959e7"}
           alt="Product"
         />
-        {openProducts[productby_Id.id]  && <Editpublished onReviewClick={onReviewClick} order={orderData} productby_Id={productby_Id}/>}
-      
+
+        {openProducts[productdata.customerid] && <Editpublished onSuccess={refetchProductData} id={productdata} onReviewClick={onReviewClick} order={productdata} productby_Id={orderData} />}
       </div>
     </div>
   );

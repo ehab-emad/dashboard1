@@ -1,4 +1,4 @@
-import  { useEffect } from 'react';
+import  { useEffect, useState } from 'react';
 
 import '../../../../App.css'
 import TitleAddProductRequest from './Titleaddress';
@@ -7,6 +7,9 @@ import RenterInfoAdmin from './sellerinfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { ChangepublishedStatus, ConfirmedProducts, DraftProducts, PendingProducts, PublishedFalse, PublishedRentedFalse, PublishedRentedTrue, PublishedTrue, RejectedProducts } from '../../../../store/reducers/sellerProductsReducer';
 import { toast } from 'react-toastify';
+import { updateProductss } from '../../../../store/reducers/firebasefunctions';
+
+import ImageUploader1 from './uploadingnewimages';
 
 const styless = {
   renterCard: {
@@ -602,308 +605,281 @@ const uploadImageStyles = {
 // 
 
 
-const AddRequestSummary = ({product,setReviewProduct}) => {
-    const { published_rentedtrue,published_rentedfalse,published_false ,products_confirmed, products_draft, products_pending, products_rejected } = useSelector((state) => state.seller_products);
-  
-useEffect(()=>{
+const AddRequestSummary = ({ product, setReviewProduct }) => {
+  const { published_rentedtrue, published_rentedfalse, published_false, products_confirmed, products_draft, products_pending, products_rejected } = useSelector((state) => state.seller_products);
 
-},[product,published_rentedtrue,published_rentedfalse,published_false ,products_confirmed, products_draft, products_pending, products_rejected ])
-  const dispatch=useDispatch()
+  const [updatedProduct, setUpdatedProduct] = useState({ ...product });
+  const [images, setImages] = useState([]);
+  const [uploaded, setUploaded] = useState(false);
+  useEffect(() => {
+    setUpdatedProduct({ ...product });
+  }, [product]);
+
+  const dispatch = useDispatch();
   const sellerid = localStorage.getItem('sellerId');
- // Replace with dynamic user ID
-  const handleapproved =async (product)=> {
-      // const newStatus=false
-      const productid=product.id
-    if(product.published===true){
-       const newStatuss={published: false,statuss:product.status}
-       
-      
-   dispatch(ChangepublishedStatus({ sellerid, productid, newStatuss }));
-   toast.success("تم الغاء النشر")
-   setReviewProduct(product.id)
 
- 
+  const handleInputChange = (e, field) => {
+    const value = e.target.value;
+    setUpdatedProduct(prevState => ({
+      ...prevState,
+      [field]: value
+    }));
+  };
+
+  const handleapproved = async (product) => {
+    const productid = product.id;
+    if (product.published === true) {
+      const newStatuss = { published: false, statuss: product.status };
+      dispatch(ChangepublishedStatus({ sellerid, productid, newStatuss }));
+      toast.success("تم الغاء النشر");
+      setReviewProduct(product.id);
+    } else {
+      const newStatuss = { published: true, statuss: product.status };
+      dispatch(ChangepublishedStatus({ sellerid, productid, newStatuss }));
+      setReviewProduct(product.id);
+      toast.success("تم  النشر");
     }
-    else{
-      const newStatuss={published: true,statuss:product.status}
 
-      dispatch(ChangepublishedStatus({sellerid,productid,newStatuss}))
-     setReviewProduct(product.id)
-     toast.success("تم  النشر")
-   
-    }
-  await  dispatch(DraftProducts(sellerid));
-  await  dispatch(PublishedTrue(sellerid));
-  await  dispatch(PublishedFalse(sellerid));
-  await  dispatch(PublishedRentedFalse(sellerid));
-  await   dispatch(ConfirmedProducts(sellerid));
-  await   dispatch(PendingProducts(sellerid));
-  await  dispatch(RejectedProducts(sellerid));
-  await   dispatch(PublishedRentedTrue(sellerid));
-    };
-
-
+    await dispatch(DraftProducts(sellerid));
+    await dispatch(PublishedTrue(sellerid));
+    await dispatch(PublishedFalse(sellerid));
+    await dispatch(PublishedRentedFalse(sellerid));
+    await dispatch(ConfirmedProducts(sellerid));
+    await dispatch(PendingProducts(sellerid));
+    await dispatch(RejectedProducts(sellerid));
+    await dispatch(PublishedRentedTrue(sellerid));
+  };
+  const getFirebaseTimestamp = () => {
+    return new Date().toISOString();
+  };
   
+
+  const handleSubmit = async(id) => {
+    const formData = new FormData();
+    console.log(updatedProduct)
+    
+    Object.keys(updatedProduct).forEach(key => {
+      formData.append(key, updatedProduct[key]);
+    });
+ await updateProductss(id, updatedProduct);
+ await dispatch(DraftProducts(sellerid));
+ await dispatch(PublishedTrue(sellerid));
+ await dispatch(PublishedFalse(sellerid));
+ await dispatch(PublishedRentedFalse(sellerid));
+ await dispatch(ConfirmedProducts(sellerid));
+ await dispatch(PendingProducts(sellerid));
+ await dispatch(RejectedProducts(sellerid));
+ await dispatch(PublishedRentedTrue(sellerid));
+   setReviewProduct(product.id)
+  };
+
   return (
-    <div
-    style={backgroundstyles.container}
-    role="dialog"
-    className='overflowstatus'
-    aria-labelledby="dialog-title"
-    aria-modal="true"
-  >
-    <div style={styles.mainContainer} className='topstate1'>
-
+    <div style={backgroundstyles.container} role="dialog" className='overflowstatus' aria-labelledby="dialog-title" aria-modal="true">
+      <div style={styles.mainContainer} className='topstate1'>
         <div style={styles.headetop}>
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/1479ad6ccf24ef7ae351d02c2a94be35ccbf27bd1b93d744fba097d06561feba?placeholderIfAbsent=true&apiKey=2e2b2f636cc34221b980cbf747a16fe6"
-                style={styles.icontop}
-                alt="Order details icon"
-                onClick={()=>  setReviewProduct(product.id)}
-              />
-              <div style={styles.orderTitle}>بيانات المنتج</div>
-        </div>
-         
-        <div style={styles.container} className='flexReverse'>
-              <div style={styles.left} className='details'>
-              <div style={AddProductHeader.containerprices}>
-
-              <TitleAddProductRequest title={"السعر"}/>
-              <div style={ProductDetailsStyles.container}>
-                  <div style={ProductDetailsStyles.topSection}>
-                    <div style={ProductDetailsStyles.pricescontianer}>
-                    <TextBoxField 
-                      label="مبلغ التأمين  " 
-                      placeholder={product.insurancefee} 
-                  />
-                     <TextBoxField 
-                      label="نسبة الخصم " 
-                      placeholder={product.discount}  
-                  />
-                     <TextBoxField 
-                      label="سعر المنتج  " 
-                      placeholder={product.price} 
-                  />
-            
-                       
-                    </div>
-                    <TitleAddProductRequest title={"العروض"}/>
-
-                    <div style={ProductDetailsStyles.pricescontianer}>
-                      {
-                        product.offerdata.map((i)=>(<>
-                        
-                        <TextBoxField 
-                      label={`سعر المنتج لـ${i.days||"empty"} يوم `}   
-                       placeholder={i.price||"empty"} 
-                  />
-                        
-                        
-                        </>))
-                      }
-                   
-                 
-
-
-
-
-                    </div>
-                    
-                                              
-                  </div>
-          
-              </div>
-              </div>
-              <div style={styless.renterCard}>
-
-<TitleAddProductRequest title={"الصور"}/>
-<div style={uploadImageStyles.container}>
-               
-{product.images.length?  
-(product.images.map((img, index) => (
-<div key={index} >
-<img
-              loading="lazy"
-              src={img || "https://cdn.builder.io/api/v1/image/assets/TEMP/2674550b4959452a94907f0724e4cc69073cf7055b6f41793d6b528376975ab2?placeholderIfAbsent=true&apiKey=6d0a7932901f457a91041e45ceb959e7"}
-              style={uploadImageStyles.image}
-              alt="Default Placeholder"
-            />  
-</div>
-))):  <> <div style={uploadImageStyles.imageContainer}>
-<img
-loading="lazy"
-src="https://cdn.builder.io/api/v1/image/assets/TEMP/2674550b4959452a94907f0724e4cc69073cf7055b6f41793d6b528376975ab2?placeholderIfAbsent=true&apiKey=6d0a7932901f457a91041e45ceb959e7"
-style={uploadImageStyles.image}
-alt="Default Placeholder"
-/>                         
-</div>
-<div style={uploadImageStyles.imageContainer}>
-<img
-loading="lazy"
-src="https://cdn.builder.io/api/v1/image/assets/TEMP/2674550b4959452a94907f0724e4cc69073cf7055b6f41793d6b528376975ab2?placeholderIfAbsent=true&apiKey=6d0a7932901f457a91041e45ceb959e7"
-style={uploadImageStyles.image}
-alt="Default Placeholder"
-/>                         
-</div>
-<div style={uploadImageStyles.imageContainer}>
-<img
-loading="lazy"
-src="https://cdn.builder.io/api/v1/image/assets/TEMP/2674550b4959452a94907f0724e4cc69073cf7055b6f41793d6b528376975ab2?placeholderIfAbsent=true&apiKey=6d0a7932901f457a91041e45ceb959e7"
-style={uploadImageStyles.image}
-alt="Default Placeholder"
-/>                         
-</div></>
-}                             
-
-      
-     
-   
-</div>
-</div> 
-            
-                
-
-
-{ product.status ==="approved" && 
-  <div style={styles.buttonscontainer} className='buttonscontainer'>
- { product.published?
-  <button 
-  style={{ ...styles.actionButton, ...styles.rejectButton }}
-  tabIndex="0"
-  role="button"
-  onClick={()=>handleapproved(product)}
->
- إلغاء النشر
-</button>:
-  <button 
-  style={{ ...styles.actionButton, ...styles.approveButton }}
-  tabIndex="0"
-  role="button"
-  onClick={()=>handleapproved(product)}
->
-تفعيل النشر
-</button>
-}               
-</div> 
-
-}
-
-
-
-                     
+          <img
+            loading="lazy"
+            src="https://cdn.builder.io/api/v1/image/assets/TEMP/1479ad6ccf24ef7ae351d02c2a94be35ccbf27bd1b93d744fba097d06561feba?placeholderIfAbsent=true&apiKey=2e2b2f636cc34221b980cbf747a16fe6"
+            style={styles.icontop}
+            alt="Order details icon"
+            onClick={() => setReviewProduct(product.id)}
+          />
+          <div style={styles.orderTitle}>بيانات المنتج</div>
         
-            
-                
-
-              
-          
-              </div>
-              <div style={styles.right}>
-
-                    <div style={AddProductHeader.container}>
-
-                      <TitleAddProductRequest title={"العنوان"}/>
-                      <div style={ProductDetailsStyles.container}>
-                              <div style={ProductDetailsStyles.topSection}>
-                                  <div style={ProductDetailsStyles.pricescontianer}>
-                                  <TextBoxField 
-                                        label="الماركة" 
-                                        placeholder={product.brand }
-
-                                    />
-                                         <TextBoxField 
-                                        label="اسم المنتج" 
-                                        placeholder={product.name }
-                                    />
-                                    
-                                   </div>
-                                   <div style={ProductDetailsStyles.pricescontianer}>
-                               
-                                   <TextBoxField 
-                                        label="المدينة" 
-                                        placeholder=  {product.address? (product.address.city || "empty"):"null"}
-                                    />
-                                         <TextBoxField 
-                                        label="التصنيف" 
-                                        placeholder= {product.category }
-                                    />
-                                    
-                                   </div>
-                                    
-                                    
-                                                    
-                              </div>
-                                            
-                              <div style={ProductDetailsStyles.descriptionSection}>
-                                                    <div style={ProductDetailsStyles.label}>وصف المنتج</div>
-                                                    <textarea
-                                                      style={ProductDetailsStyles.descriptionInput}
-                                                      placeholder= {product.description || 'empty'}
-                                                      
-                                                    />
-                              </div>{
-                              }
-                                            
-                              <div style={ProductDetailsStyles.featuresSection}>
-                                                    <div style={ProductDetailsStyles.label}>مميزات المنتج</div>
-                                                    
-                                                    <div style={ProductDetailsStyles.featuresGrid}>
-                                                   { product.features?  
-                                                  
-                                                    (product.features.map((feature, index) => (
-                                                        <div key={index} style={ProductDetailsStyles.featureBox}>
-                                                          <input
-                                                            type="text"
-                                                            defaultValue={feature || 'empty'}
-                                                            placeholder={`ميزة ${index + 1}`}
-                                                            style={ ProductDetailsStyles.placeholder }
-                                                            />
-                                                        </div>
-                                                      ))):<>
-                                                          <div  style={ProductDetailsStyles.featureBox}>
-                                                          <input
-                                                            type="text"
-                                                            defaultValue={ 'empty'}
-                                                            placeholder={`ميزة `}
-                                                            style={ ProductDetailsStyles.placeholder }
-                                                            />
-                                                        </div>
-                                                        <div  style={ProductDetailsStyles.featureBox}>
-                                                          <input
-                                                            type="text"
-                                                            defaultValue={ 'empty'}
-                                                            placeholder={`ميزة `}
-                                                            style={ ProductDetailsStyles.placeholder }
-                                                            />
-                                                        </div>
-                                                        <div  style={ProductDetailsStyles.featureBox}>
-                                                          <input
-                                                            type="text"
-                                                            defaultValue={ 'empty'}
-                                                            placeholder={`ميزة `}
-                                                            style={ ProductDetailsStyles.placeholder }
-                                                            />
-                                                        </div>
-                                                        
-                                                        
-                                                        
-                                                        
-                                                        </>}
-                                                    </div>
-                              </div>
-
-                                            
-                      </div>
-
-                    </div>
-                                                    
-    
-              </div>
 
         </div>
-    
-    </div>
+
+        <div style={styles.container} className='flexReverse'>
+          <div style={styles.left} className='details'>
+            <div style={AddProductHeader.containerprices}>
+              <TitleAddProductRequest title={"السعر"} />
+              <div style={ProductDetailsStyles.container}>
+                <div style={ProductDetailsStyles.topSection}>
+                  <div style={ProductDetailsStyles.pricescontianer}>
+                    <TextBoxField
+                      label="مبلغ التأمين"
+                      value={updatedProduct.insurancefee}
+                      placeholder={updatedProduct.insurancefee}
+                      onChange={(e) => handleInputChange(e, 'insurancefee')}
+                    />
+                    <TextBoxField
+                      label="نسبة الخصم"
+                      value={updatedProduct.discount}
+                      placeholder={updatedProduct.discount}
+                      onChange={(e) => handleInputChange(e, 'discount')}
+                    />
+                    <TextBoxField
+                      label="سعر المنتج"
+                      value={updatedProduct.price}
+                      placeholder={updatedProduct.price}
+                      onChange={(e) => handleInputChange(e, 'price')}
+                    />
+                  </div>
+                  <TitleAddProductRequest title={"العروض"} />
+                  <div style={ProductDetailsStyles.pricescontianer}>
+                  {Array.isArray(updatedProduct.offerdata) &&
+  updatedProduct.offerdata.map((i, index) => (
+    <TextBoxField
+      key={index}
+      label={`سعر المنتج لـ${i.days || "؟"} يوم`}
+      value={i.price || ""}
+      placeholder={` ${i.price }`}
+      onChange={(e) => {
+        // تحديث السعر في الـ offerdata حسب الـ index
+        const newOfferData = [...updatedProduct.offerdata];
+        newOfferData[index] = {
+          ...newOfferData[index],
+          price: e.target.value ? parseInt(e.target.value) : 0,
+        };
+        setUpdatedProduct((prev) => ({
+          ...prev,
+          offerdata: newOfferData,
+        }));
+      }}
+    />
+  ))}
+
+
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style={styless.renterCard}>
+              <TitleAddProductRequest title={"الصور"} />
+              {/* <ImageUploader setImages={setUpdatedProduct} setUploaded={setUploaded}/> */}
+              <ImageUploader1
+  updatedProduct={updatedProduct}
+  setUpdatedProduct={setUpdatedProduct}
+/>
+
+
+            </div>
+
+            {updatedProduct.status === "approved" && (
+              <div style={styles.buttonscontainer} className='buttonscontainer'>
+                {updatedProduct.published ? (
+                  <button
+                    style={{ ...styles.actionButton, ...styles.rejectButton }}
+                    tabIndex="0"
+                    role="button"
+                    onClick={() => handleapproved(updatedProduct)}
+                  >
+                    إلغاء النشر
+                  </button>
+                ) : (
+                  <button
+                    style={{ ...styles.actionButton, ...styles.approveButton }}
+                    tabIndex="0"
+                    role="button"
+                    onClick={() => handleapproved(updatedProduct)}
+                  >
+                    تفعيل النشر
+                  </button>
+                )}
+              </div>
+            )}
+              <button
+  onClick={() => handleSubmit(product.id)}
+  style={{
+    backgroundColor: '#4CAF50',
+    color: 'white',
+    padding: '10px 20px',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '16px',
+    fontWeight: 'bold',
+    transition: 'background-color 0.3s ease',
+  }}
+  onMouseOver={(e) => e.target.style.backgroundColor = '#45a049'}
+  onMouseOut={(e) => e.target.style.backgroundColor = '#4CAF50'}
+>
+  حفظ التعديلات
+</button>
+          </div>
+
+          <div style={styles.right}>
+            <div style={AddProductHeader.container}>
+              <TitleAddProductRequest title={"العنوان"} />
+              <div style={ProductDetailsStyles.container}>
+                <div style={ProductDetailsStyles.topSection}>
+                  <div style={ProductDetailsStyles.pricescontianer}>
+                    <TextBoxField
+                      label="الماركة"
+                      value={updatedProduct.brand}
+                      placeholder={updatedProduct.brand}
+                      onChange={(e) => handleInputChange(e, 'brand')}
+                    />
+                    <TextBoxField placeholder={updatedProduct.name}
+                      label="اسم المنتج"
+                      value={updatedProduct.name}
+                      onChange={(e) => handleInputChange(e, 'name')}
+                    />
+                  </div>
+                  <div style={ProductDetailsStyles.pricescontianer}>
+                    <TextBoxField 
+                      label="المدينة"
+                      value={updatedProduct.address ? updatedProduct.address.city || "empty" : "null"}
+                      placeholder={updatedProduct.address ? updatedProduct.address.city || "empty" : "null"}
+                      onChange={(e) => handleInputChange(e, 'address.city')}
+                    />
+                    <TextBoxField
+                      label="التصنيف"
+                      value={updatedProduct.category}
+                      placeholder={updatedProduct.category}
+                      onChange={(e) => handleInputChange(e, 'category')}
+                    />
+                  </div>
+                </div>
+
+                <div style={ProductDetailsStyles.descriptionSection}>
+                  <div style={ProductDetailsStyles.label}>وصف المنتج</div>
+                  <textarea
+                    style={ProductDetailsStyles.descriptionInput}
+                    value={updatedProduct.description || 'empty'}
+                    placeholder={updatedProduct.description || 'empty'}
+                    onChange={(e) => handleInputChange(e, 'description')}
+                  />
+                </div>
+
+                <div style={ProductDetailsStyles.featuresSection}>
+                  <div style={ProductDetailsStyles.label}>مميزات المنتج</div>
+                  <div style={ProductDetailsStyles.featuresGrid}>
+                    {updatedProduct.features ? (
+                      updatedProduct.features.map((feature, index) => (
+                        <div key={index} style={ProductDetailsStyles.featureBox}>
+                          <input
+                            type="text"
+                            value={feature || 'empty'}
+                            placeholder={`ميزة ${index + 1}`}
+                            style={ProductDetailsStyles.placeholder}
+                            onChange={(e) => {
+                              const newFeatures = [...updatedProduct.features];
+                              newFeatures[index] = e.target.value;
+                              setUpdatedProduct(prevState => ({ ...prevState, features: newFeatures }));
+                            }}
+                          />
+                        </div>
+                      ))
+                    ) : (
+                      <div style={ProductDetailsStyles.featureBox}>
+                        <input
+                          type="text"
+                          value={'empty'}
+                          placeholder={`ميزة `}
+                          style={ProductDetailsStyles.placeholder}
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
