@@ -203,15 +203,15 @@ const OrderSummary = ({orderData,toggleDetails,index}) => {
       <div style={OrderSumaryStyle.container}>
         <div style={OrderSumaryStyle.left} className='details'>
             <InvoiceSummary orderData={orderData} />
-            <RenterInfo2 orderData={customerby_Id} />
-            <OwnerInfo orderData={sellerdata} />
+       { orderData    && <RenterInfo2 orderData={orderData} />}    
+            {/* <OwnerInfo orderData={sellerdata} /> */}
 
         </div>
         <div style={OrderSumaryStyle.right}>
-          <RentalDetails orderData={orderData}/>
-          <ReceivingAddress orderData={orderData}/>
+      {orderData &&<RentalDetails orderData={orderData}/>}    
+       {orderData &&  <ReceivingAddress orderData={orderData}/>}  
 
-          <ProductDetails orderData={productby_Id}/>
+        {orderData&&  <ProductDetails orderData={orderData}/>} 
           <ActionButtons>
         {
           orderData.status==="pending"?

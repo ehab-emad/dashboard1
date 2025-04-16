@@ -93,25 +93,20 @@ const styles = {
 
 function RequestTopSummary({orderData}) {
   const formatTimestamp = (timestamp) => {
-    if (!timestamp) return 'N/A';
-  
     try {
-      // لو من نوع Firestore Timestamp object
-      if (typeof timestamp.toDate === 'function') {
-        const date = timestamp.toDate();
-        return date.toLocaleDateString('EG'); // ممكن تخصّص الشكل
+      if (!timestamp) return 'N/A';
+  
+      // التعامل مع Firestore Timestamp
+      if (timestamp.seconds && timestamp.nanoseconds) {
+        const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
+        return date.toLocaleDateString(); // أو استخدم toLocaleString لو عايز التوقيت كمان
       }
   
-      // لو جاي على شكل كائن عادي {seconds, nanoseconds}
-      if (timestamp.seconds && timestamp.nanoseconds !== undefined) {
-        const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1e6);
-        return date.toLocaleDateString('EG');
-      }
-  
-      return 'Invalid timestamp';
+      // لو timestamp مش في الشكل المتوقع نرجعه كستينج
+      return new Date(timestamp).toLocaleDateString();
     } catch (error) {
-      console.error("تاريخ غير صالح:", error);
-      return 'Invalid date';
+      console.error("Error parsing timestamp:", error);
+      return "خطأ في قراءة التاريخ";
     }
   };
   return (

@@ -231,24 +231,15 @@ const RentalDetailsStyle = {
 function RentalDetails({orderData}) { 
   const formatTimestamp = (timestamp) => {
     if (!timestamp) return 'N/A';
-  
     try {
-      // لو من نوع Firestore Timestamp object
-      if (typeof timestamp.toDate === 'function') {
-        const date = timestamp.toDate();
-        return date.toLocaleDateString('EG'); // ممكن تخصّص الشكل
+      if (typeof timestamp === 'object' && 'seconds' in timestamp) {
+        const date = new Date(timestamp.seconds * 1000);
+        return date.toLocaleDateString(); // Or customize as needed
       }
-  
-      // لو جاي على شكل كائن عادي {seconds, nanoseconds}
-      if (timestamp.seconds && timestamp.nanoseconds !== undefined) {
-        const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1e6);
-        return date.toLocaleDateString('EG');
-      }
-  
-      return 'Invalid timestamp';
-    } catch (error) {
-      console.error("تاريخ غير صالح:", error);
-      return 'Invalid date';
+      const date = new Date(timestamp); // In case it's a string timestamp
+      return isNaN(date.getTime()) ? 'Invalid Date' : date.toLocaleDateString();
+    } catch (err) {
+      return 'Invalid Date';
     }
   };
   

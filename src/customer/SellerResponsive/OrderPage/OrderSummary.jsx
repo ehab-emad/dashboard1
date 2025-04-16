@@ -158,23 +158,21 @@ const OrderSummary = ({orderData,toggleDetails,index}) => {
   return (
     <div style={OrderSumaryStyle.mainContainer}>
       <div style={OrderSumaryStyle.container1}>
-        {console.log("fffff",sellerdata)}
-        {console.log("ss",customerby_Id)}
-        {console.log("aa",productby_Id)}
+       
         <RequestTopSummary orderData={orderData}/>
       </div>
       <div style={OrderSumaryStyle.container}>
         <div style={OrderSumaryStyle.left} className='details'>
-            <InvoiceSummary orderData={orderData} />
-            <RenterInfo2 orderData={customerby_Id} />
-          {sellerdata?   <OwnerInfo orderData={sellerdata} />:null}
+       {orderData &&  <InvoiceSummary orderData={orderData} />}    
+     
+          {orderData?   <OwnerInfo orderData={orderData} />:null}
 
         </div>
         <div style={OrderSumaryStyle.right}>
-          <RentalDetails orderData={orderData}/>
-          <ReceivingAddress orderData={orderData}/>
+        {orderData &&   <RentalDetails orderData={orderData}/>}
+        {orderData &&       <ReceivingAddress orderData={orderData}/>}
 
-          <ProductDetails orderData={productby_Id}/>
+        {orderData &&      <ProductDetails orderData={orderData}/>}
           <ActionButtons>
         {
           orderData.status==="pending"?

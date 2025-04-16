@@ -7,6 +7,133 @@ import RenterInfoAdmin from './sellerinfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { ChangepublishedStatus, ConfirmedProducts, DraftProducts, PendingProducts, PublishedFalse, PublishedRentedFalse, PublishedRentedTrue, PublishedTrue, RejectedProducts } from '../../../../store/reducers/sellerProductsReducer';
 import { toast } from 'react-toastify';
+
+const styless = {
+  renterCard: {
+    alignSelf: 'stretch',
+    borderRadius: '24px',
+    background: 'var(--White, #fff)',
+    display: 'flex',
+    width: 'auto', // Full width of the parent
+    minWidth: 'calc(100% - 32px)', // Ensure minWidth accounts for parent's padding
+    maxWidth: '100%', // Prevent exceeding parent width
+    height: 'auto',
+    flexDirection: 'column',
+    overflow: 'hidden',
+    padding: '16px',
+    flexShrink: 0, // Prevent shrinking in flex container
+
+  },
+  header: {
+    paddingBottom: '8px',
+    justifyContent: 'end',
+    alignItems: 'center',
+    borderBottom: '1px solid var(--line-saperator, rgba(0, 47, 54, 0.08))',
+    display: 'flex',
+    width: '100%',
+    gap: '8px',
+    fontSize: '18px',
+    color: 'var(--Text, #252422)',
+    fontWeight: '400',
+    textAlign: 'right'
+  },
+  headerIcon: {
+    aspectRatio: '1',
+    objectFit: 'contain',
+    objectPosition: 'center',
+    width: '24px'
+  },
+  profileContainer: {
+    borderRadius: '24px',
+    border: '0.5px solid var(--Stroke, rgba(0, 47, 54, 0.24))',
+    display: 'flex',
+    marginTop: '16px',
+    width: '100%',
+    flexDirection: 'column',
+    padding: '4px'
+  },
+  profileHeader: {
+    display: 'flex',
+    width: '100%',
+    alignItems: 'center',
+    gap: '8px',
+    justifyContent: 'end'
+  },
+  container: {
+    justifyContent: "end",
+    alignItems: "center",
+    borderRadius: "24px",
+    border: "0.5Px solid var(--Stroke, rgba(0, 47, 54, 0.24))",
+    display: "flex",
+    gap: "16px",
+    fontFamily: "Expo Arabic, sans-serif",
+    textAlign: "center",
+    padding: "16px",
+    width: 'auto'
+
+  },
+  contactButton: {
+    alignSelf: "stretch",
+    borderRadius: "50px",
+    border: "1px solid var(--Blue, #27989e)",
+    gap: "8px",
+    fontSize: "14px",
+    color: "var(--Blue, #27989e)",
+    fontWeight: "500",
+    margin: "auto 0",
+    padding: "16px",
+    backgroundColor: "transparent",
+    cursor: "pointer"
+  },
+  userInfo: {
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+    justifyContent: "end",
+    flex: 1,
+    flexBasis: "32px",
+    margin: "auto 0",
+  },
+  userDetails: {
+    alignSelf: "stretch",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "end",
+    justifyContent: "center",
+    flex: 1,
+    flexBasis: "0%",
+    margin: "auto 0"
+  },
+  verifiedBadge: {
+    borderRadius: "8px",
+    background: "var(--success-shade, #e1ffc9)",
+    backgroundColor: "var(--success-shade, #e1ffc9)",
+    gap: "10px",
+    fontSize: "12px",
+    color: "var(--success, #4a9908)",
+    fontWeight: "600",
+    padding: "4px 8px",
+    width: 'auto'
+  },
+  userName: {
+    marginTop: "4px",
+    gap: "4px",
+    fontSize: "18px",
+    color: "var(--Text, #252422)",
+    fontWeight: "500",
+    lineHeight: "1"
+  },
+  userAvatar: {
+    aspectRatio: "1",
+    objectFit: "contain",
+    objectPosition: "center",
+    width: "44px",
+    boxShadow: "0px 4px 16px 0px rgba(255, 255, 255, 0.24)",
+    alignSelf: "stretch",
+    margin: "auto 0"
+  }
+
+};
 const backgroundstyles = {
 
   container :{
@@ -588,16 +715,59 @@ useEffect(()=>{
           
               </div>
               </div>
-              {
-                product &&  <RenterInfoAdmin Order={product}  />
-              }
+              <div style={styless.renterCard}>
+
+<TitleAddProductRequest title={"الصور"}/>
+<div style={uploadImageStyles.container}>
+               
+{product.images.length?  
+(product.images.map((img, index) => (
+<div key={index} >
+<img
+              loading="lazy"
+              src={img || "https://cdn.builder.io/api/v1/image/assets/TEMP/2674550b4959452a94907f0724e4cc69073cf7055b6f41793d6b528376975ab2?placeholderIfAbsent=true&apiKey=6d0a7932901f457a91041e45ceb959e7"}
+              style={uploadImageStyles.image}
+              alt="Default Placeholder"
+            />  
+</div>
+))):  <> <div style={uploadImageStyles.imageContainer}>
+<img
+loading="lazy"
+src="https://cdn.builder.io/api/v1/image/assets/TEMP/2674550b4959452a94907f0724e4cc69073cf7055b6f41793d6b528376975ab2?placeholderIfAbsent=true&apiKey=6d0a7932901f457a91041e45ceb959e7"
+style={uploadImageStyles.image}
+alt="Default Placeholder"
+/>                         
+</div>
+<div style={uploadImageStyles.imageContainer}>
+<img
+loading="lazy"
+src="https://cdn.builder.io/api/v1/image/assets/TEMP/2674550b4959452a94907f0724e4cc69073cf7055b6f41793d6b528376975ab2?placeholderIfAbsent=true&apiKey=6d0a7932901f457a91041e45ceb959e7"
+style={uploadImageStyles.image}
+alt="Default Placeholder"
+/>                         
+</div>
+<div style={uploadImageStyles.imageContainer}>
+<img
+loading="lazy"
+src="https://cdn.builder.io/api/v1/image/assets/TEMP/2674550b4959452a94907f0724e4cc69073cf7055b6f41793d6b528376975ab2?placeholderIfAbsent=true&apiKey=6d0a7932901f457a91041e45ceb959e7"
+style={uploadImageStyles.image}
+alt="Default Placeholder"
+/>                         
+</div></>
+}                             
+
+      
+     
+   
+</div>
+</div> 
             
-                <div style={styles.buttonscontainer} className='buttonscontainer'>
+                
 
 
-
-{
-  product.published?
+{ product.status ==="approved" && 
+  <div style={styles.buttonscontainer} className='buttonscontainer'>
+ { product.published?
   <button 
   style={{ ...styles.actionButton, ...styles.rejectButton }}
   tabIndex="0"
@@ -614,13 +784,15 @@ useEffect(()=>{
 >
 تفعيل النشر
 </button>
+}               
+</div> 
+
 }
 
 
 
                      
-                          
-                </div> 
+        
             
                 
 
@@ -725,52 +897,7 @@ useEffect(()=>{
                       </div>
 
                     </div>
-                    <div style={AddProductHeader.container}>
-
-                          <TitleAddProductRequest title={"الصور"}/>
-                          <div style={uploadImageStyles.container}>
-                                         
-   {product.images.length?  
-   (product.images.map((img, index) => (
-  <div key={index} >
-     <img
-                                        loading="lazy"
-                                        src={img || "https://cdn.builder.io/api/v1/image/assets/TEMP/2674550b4959452a94907f0724e4cc69073cf7055b6f41793d6b528376975ab2?placeholderIfAbsent=true&apiKey=6d0a7932901f457a91041e45ceb959e7"}
-                                        style={uploadImageStyles.image}
-                                        alt="Default Placeholder"
-                                      />  
-  </div>
-))):  <> <div style={uploadImageStyles.imageContainer}>
-<img
-  loading="lazy"
-  src="https://cdn.builder.io/api/v1/image/assets/TEMP/2674550b4959452a94907f0724e4cc69073cf7055b6f41793d6b528376975ab2?placeholderIfAbsent=true&apiKey=6d0a7932901f457a91041e45ceb959e7"
-  style={uploadImageStyles.image}
-  alt="Default Placeholder"
-/>                         
-</div>
-   <div style={uploadImageStyles.imageContainer}>
-   <img
-     loading="lazy"
-     src="https://cdn.builder.io/api/v1/image/assets/TEMP/2674550b4959452a94907f0724e4cc69073cf7055b6f41793d6b528376975ab2?placeholderIfAbsent=true&apiKey=6d0a7932901f457a91041e45ceb959e7"
-     style={uploadImageStyles.image}
-     alt="Default Placeholder"
-   />                         
-</div>
-<div style={uploadImageStyles.imageContainer}>
-   <img
-     loading="lazy"
-     src="https://cdn.builder.io/api/v1/image/assets/TEMP/2674550b4959452a94907f0724e4cc69073cf7055b6f41793d6b528376975ab2?placeholderIfAbsent=true&apiKey=6d0a7932901f457a91041e45ceb959e7"
-     style={uploadImageStyles.image}
-     alt="Default Placeholder"
-   />                         
-</div></>
-   }                             
-
-                                
-                               
-                             
-                          </div>
-                    </div>                                   
+                                                    
     
               </div>
 

@@ -250,7 +250,7 @@ function RenterInfo({orderData}) {
              <div style={styles.userInfo}>
               <div style={styles.verifiedBadge}>
                 {
-                  orderData.status==="approved"?
+                  orderData.sellerstatus==="approved"?
 "  مالك موثوق":"مالك غير موثوق"
                 }
               
@@ -262,7 +262,7 @@ function RenterInfo({orderData}) {
               <div style={styles.userName}>{orderData.sellername||"empty"} </div>
              </div>
 
-              <img loading="lazy" src={orderData.profileimage||"https://cdn.builder.io/api/v1/image/assets/TEMP/2a18a1efa1608002be194d42f3bfbf8f8234c6e03664aa6ad91723d9a41c9f6d?placeholderIfAbsent=true&apiKey=6d0a7932901f457a91041e45ceb959e7"} alt="صورة المستأجر" style={styles.avatar} />
+              <img loading="lazy" src={orderData.sellerimage||"https://cdn.builder.io/api/v1/image/assets/TEMP/2a18a1efa1608002be194d42f3bfbf8f8234c6e03664aa6ad91723d9a41c9f6d?placeholderIfAbsent=true&apiKey=6d0a7932901f457a91041e45ceb959e7"} alt="صورة المستأجر" style={styles.avatar} />
           </div>
         </div>
 

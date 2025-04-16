@@ -169,7 +169,7 @@ const SellerMyProductsPage = () => {
         <ProductListingFilter
           handlebuttonclick={handleSecondaryFilterClick}
           filterbuttons={filters.secondaryFilterOptions[filters.topFilter]}
-          title="قائمة المنتجات"
+          title="قائمة الطلبات"
         />
         <SearchBar setSearch={setSearchQuery} />
         <LabelHeader  />

@@ -828,7 +828,7 @@ const {sellerdata}=useSelector((state)=>state.seller_products)
 
    
     const productData = {
-      sellerid: sellerid,
+    
       rented: false, 
       published: true,
       brand: productDetails.brand,
@@ -872,6 +872,7 @@ rating:0
       oldprice: parseInt(insuranceInput["سعر المنتج لليوم الواحد"] || 0), 
       price: parseInt(insuranceInput["سعر المنتج لليوم الواحد"] || 0), 
       rating: 5, 
+      sellerid:sellerid,
       shipping: 0,
       shopName: "", 
       status: status.status, 
@@ -902,7 +903,10 @@ rating:0
           features: ['', '', ''],
         })
         setNewAddress('')
-   
+        setInsurance({})
+        setOffering({})
+        setCity('')
+        setImages('')
     }
       else{
      return    toast.info("يجب مليئ كل المدخلات ")

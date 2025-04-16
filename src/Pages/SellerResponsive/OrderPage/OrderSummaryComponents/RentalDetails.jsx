@@ -231,13 +231,18 @@ const RentalDetailsStyle = {
 function RentalDetails({orderData}) { 
   const formatTimestamp = (timestamp) => {
     if (!timestamp) return 'N/A';
-    if (timestamp.seconds && timestamp.nanoseconds) {
-      const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
-      return date.toLocaleDateString(); // Customize the format as needed
+    try {
+      if (typeof timestamp === 'object' && 'seconds' in timestamp) {
+        const date = new Date(timestamp.seconds * 1000);
+        return date.toLocaleDateString(); // Or customize as needed
+      }
+      const date = new Date(timestamp); // In case it's a string timestamp
+      return isNaN(date.getTime()) ? 'Invalid Date' : date.toLocaleDateString();
+    } catch (err) {
+      return 'Invalid Date';
     }
-    return timestamp;
   };
-
+  
 
   return (
   <div style={RentalDetailsStyle.div}>
@@ -266,12 +271,12 @@ function RentalDetails({orderData}) {
        <div style={RentalDetailsStyle.divdate}>
           <div style={RentalDetailsStyle.inner}>
             <div style={RentalDetailsStyle.title}>مبلغ التأمين</div>
-            <div style={RentalDetailsStyle.inputdate}>{orderData.insurancefee||"empty"}</div>
+            <div style={RentalDetailsStyle.inputdate}>{orderData.insurancefee||0}</div>
           </div>
           <div style={RentalDetailsStyle.inner}>
 
             <div style={RentalDetailsStyle.title}>المبلغ المدفوع</div>
-            <div style={RentalDetailsStyle.inputdate}>{orderData.amountpaid||"empty"}</div>
+            <div style={RentalDetailsStyle.inputdate}>{orderData.amountpaid||0}</div>
          </div>
       </div>
     </div>

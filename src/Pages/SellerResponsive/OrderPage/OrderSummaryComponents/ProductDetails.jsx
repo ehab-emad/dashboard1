@@ -137,12 +137,12 @@ function ProductDetails({orderData}) {
         <button style={styles.button}>{productData.buttonText}</button>
         <div style={styles.div3}>
           <div style={styles.div4}>
-            <div style={styles.category}>{orderData.category ||"empty"}</div>
-            <div style={styles.productName}>{orderData.name ||"empty"}</div>
+            <div style={styles.category}>{orderData.productcategory ||"empty"}</div>
+            <div style={styles.productName}>{orderData.productname ||"empty"}</div>
           </div>
           <img
             loading="lazy"
-            src={orderData.img || "https://cdn.builder.io/api/v1/image/assets/TEMP/95545b7f00e81ffa01fd6fd9c7f6fa8f332c4123f8fa0cae8fc27a821887ccf1?placeholderIfAbsent=true&apiKey=d450998b662b4d7f9d8aea2e6e480818"}
+            src={orderData.productimage || "https://cdn.builder.io/api/v1/image/assets/TEMP/95545b7f00e81ffa01fd6fd9c7f6fa8f332c4123f8fa0cae8fc27a821887ccf1?placeholderIfAbsent=true&apiKey=d450998b662b4d7f9d8aea2e6e480818"}
             style={styles.img2}
             alt=""
           />

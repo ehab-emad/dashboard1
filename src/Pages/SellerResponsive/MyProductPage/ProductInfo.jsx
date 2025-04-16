@@ -457,7 +457,12 @@ const filteredProducts = useMemo(() => {
       ].sort((a, b) => b.createdAt - a.createdAt);
       filtered = allProducts;
     } else if (activeFilterText === 'المسودة') {
-      filtered = products_draft;
+      const allProducts = [
+        ...products_draft,
+     
+        ...published_false,
+      ].sort((a, b) => b.createdAt - a.createdAt);
+      filtered = allProducts;
     }
   }
 
@@ -679,33 +684,8 @@ style={stylesProductCard.productImage}
 openProducts[product.id]  && 
 <div style={{display : 'flex' , flexDirection : 'column',  gap: '10px',position:"relative"}} className='line'>
 <div style={{display : 'flex' , flexDirection : 'row-reverse' , justifyContent : 'space-between',margin:"10px 0"}}>
-<p style={{direction : 'rtl' , fontSize : '15px' ,fontWeight:"700", margin : '5px 0px',display:"flex",alignItems:"center"}}><span style = {{color : '#736E67'}}>حاله المنتج : </span>  <div style={styles.filterItemnull}>
-       <div >
-        {
-            
-        
-        product.published && product.rented===false ?
-        
-   <div style={{width:"100%"}}>
-    <img style={{width:"100%"}} src='https://res.cloudinary.com/dbztvm0io/image/upload/v1741538282/%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA_-_%D9%85%D8%AA%D8%A7%D8%AD_%D9%84%D9%84%D8%A7%D9%8A%D8%AC%D8%A7%D8%B1_mym7te.png' alt=' available'/>
-    </div>
-   :product.published && product.rented===true ?
-   <div style={{width:"100%"}}>
-    <img style={{width:"100%"}} src='https://res.cloudinary.com/dbztvm0io/image/upload/v1741538281/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA_-_%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC_%D9%85%D8%A4%D8%AC%D8%B1_lprfyi.png' alt='not available'/>
-    </div>:product.status==="draft" ?
-            <div style={{width:"100%"}}>
-            <img style={{width:"100%"}} src='https://res.cloudinary.com/dbztvm0io/image/upload/v1741538281/%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA_-_%D9%85%D8%A7%D9%84%D9%83_-_%D9%85%D8%B3%D9%88%D8%AF%D8%A9_lh7ojh.png' alt=' available'/>
-            </div>
-            
-            : <div style={{width:"100%"}}>
-    <img style={{width:"100%"}} src='https://res.cloudinary.com/dbztvm0io/image/upload/v1741538282/%D9%85%D9%86%D8%AA%D8%AC_-_%D9%85%D8%A7%D9%84%D9%83_-_%D8%BA%D9%8A%D8%B1_%D9%85%D9%86%D8%B4%D9%88%D8%B1_bou7gr.png' alt='not available'/>
-    </div>
-          
-        }
-    
-   
-         
-       </div>
+<p style={{direction : 'rtl' , fontSize : '15px' ,fontWeight:"700", margin : '5px 0px',display:"flex",alignItems:"center"}}><span style = {{color : '#736E67'}}> الخصم  </span>:{product.discount || "empty"} <div style={styles.filterItemnull}>
+      
      </div></p>
 <p style={{direction : 'rtl' , fontSize : '15px' ,fontWeight:"700", margin : '5px 0px',display:"flex",alignItems:"center"}}><span style = {{color : '#736E67'}}>السعر  </span> :{product.price || "empty"}</p>
 </div>

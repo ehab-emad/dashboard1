@@ -12,6 +12,7 @@ import ProductDetails from '../OrderPage/OrderSummaryComponents/ProductDetails';
 import ReceivingAddress from '../OrderPage/RecievingAddress';
 import InvoiceSummary from '../OrderPage/OrderSummaryComponents/InvoiceSummary';
 
+
 const OrderSumaryStyle = {
     mainContainer: {
         display: 'flex',
@@ -341,18 +342,19 @@ const OrderSummaryHome = ({onReviewClick,orderData}) => {
       </div>
       <div style={OrderSumaryStyle.container}>
         <div style={OrderSumaryStyle.left} className='details'>
-            <InvoiceSummary orderData={orderData} />
+        {
+            orderData &&      <InvoiceSummary orderData={orderData} />}
            {
-            customerby_Id && <RenterInfo2 orderData={customerby_Id} />
+            orderData && <RenterInfo2 orderData={orderData} />
            }
-            <OwnerInfo orderData={sellerdata} />
+            {/* <OwnerInfo orderData={sellerdata} /> */}
 
         </div>
         <div style={OrderSumaryStyle.right}>
           <RentalDetails orderData={orderData}/>
           <ReceivingAddress orderData={orderData}/>
 
-          <ProductDetails orderData={productby_Id}/>
+          <ProductDetails orderData={orderData}/>
 
         </div>
 

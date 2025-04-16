@@ -311,7 +311,7 @@ const OrderSummaryHome = ({onReviewClick,orderData}) => {
     dispatch(getSeller(orderData.sellerid))
     dispatch(customerbyId(orderData.customerid))
     dispatch(productbyIdCustomer({productid:orderData.productid}))
-    console.log("lllllllllllllllllllllll")
+    
   },[])
 
   
@@ -346,17 +346,17 @@ const OrderSummaryHome = ({onReviewClick,orderData}) => {
       <div style={OrderSumaryStyle.container}>
         <div style={OrderSumaryStyle.left} className='details'>
             <InvoiceSummary orderData={orderData} />
-            <RenterInfo2 orderData={customerby_Id} />
+           
        {
-        sellerdata? <OwnerInfo orderData={sellerdata} />:null
+        orderData? <OwnerInfo orderData={orderData} />:null
        }    
 
         </div>
         <div style={OrderSumaryStyle.right}>
-          <RentalDetails orderData={orderData}/>
-          <ReceivingAddress orderData={orderData}/>
+        {orderData &&       <RentalDetails orderData={orderData}/>}
+          {orderData &&         <ReceivingAddress orderData={orderData}/>}
 
-          <ProductDetails orderData={productby_Id}/>
+       {orderData &&  <ProductDetails orderData={orderData}/>}  
 
         </div>
 

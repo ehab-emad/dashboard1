@@ -134,7 +134,7 @@ const formatTimestamp = (timestamp) => {
     <>
     <LargeScreen style={styles.card}>
       <div style={{ ...styles.date , ...styles.all}}>{formatTimestamp(createdAt)||"empty"}</div>
-      <div style={{ ...styles.amount , ...styles.all}}>{amountpaid||"empty"}</div>
+      <div style={{ ...styles.amount , ...styles.all}}>{amountpaid||0}</div>
       <div style={{...styles.statusContainer , ...styles.all}}>
       <div className='hide' style={styles.statusContainer}>
             
@@ -156,7 +156,7 @@ const formatTimestamp = (timestamp) => {
       </div>
       <div style={{ ...styles.owner , ...styles.all}}>{sellername||"empty"}</div>
       <div style={{ ...styles.tenant , ...styles.all}}>{customername||"empty"}</div>
-      <div style={{ ...styles.orderNumber , ...styles.all}}>{transactionnumber}</div>
+      <div style={{ ...styles.orderNumber , ...styles.all}}>{transactionnumber||0}</div>
     </LargeScreen>
 
 
@@ -193,7 +193,7 @@ openProducts[transactionid]  &&
 <p style={{direction : 'rtl' , fontSize : 'large' , margin : '5px 0px'}}><span style = {{color : '#736E67'}}> اسم المالك : </span> {sellername ||"empty"}</p>
 </div>
 <div style={{display : 'flex' , flexDirection : 'row-reverse' , justifyContent : 'space-between'}}>
-<p style={{fontSize : 'large' , margin : '0px'}}>{amountpaid} :<span style = {{color : '#736E67'}}>  المبلغ </span></p>
+<p style={{fontSize : 'large' , margin : '0px'}}>{amountpaid||0} :<span style = {{color : '#736E67'}}>  المبلغ </span></p>
 <p style={{direction : 'rtl' , fontSize : 'large' , margin : '0px'}}><span style = {{color : '#736E67'}}>التاريخ : </span>{formatTimestamp(createdAt)||"empty"}</p>
 </div>
 </div></>

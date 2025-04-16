@@ -22,7 +22,7 @@ const AddProductHeader = {
   },
   addressText: {
     alignSelf: 'stretch',
-    flex: '1',
+    // flex: '1',
     flexBasis: '0%',
     margin: 'auto 0',
   },

@@ -467,7 +467,7 @@ export const getPendingProducts = async (sellerid) => {
             collection(firestore, 'products'),
             where('sellerid', '==', sellerid),
             where('status', '==', 'pending'),
-            where('published','==',false),
+            // where('published','==',false),
             orderBy('createdAt', 'desc')
 
         );
